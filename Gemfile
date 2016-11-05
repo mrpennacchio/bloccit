@@ -10,9 +10,10 @@ group :production do
   gem 'pg'
   gem 'rails_12factor'
 end
-# => use sqlite3 for dev adn production environment. easy to use and good for rapid testing
+# => use sqlite3 for dev and production environment. easy to use and good for rapid testing
 group :development do
-gem 'sqlite3'
+  gem 'sqlite3'
+  gem 'pry-rails'
 end
 
 group :development, :test do
