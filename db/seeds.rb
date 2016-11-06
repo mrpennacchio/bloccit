@@ -12,11 +12,13 @@ require 'random_data'
 end
 posts = Post.all
 
+
+
 #Create Comments
 # => call times on an Integer will run a given blcok the specified number of times
 100.times do
   Comment.create!(
-  # => call sample on the array returned by Post.all to pick a random post to associate each comment with 
+  # => call sample on the array returned by Post.all to pick a random post to associate each comment with
     post: posts.sample,
     body: RandomData.random_paragraph
   )
