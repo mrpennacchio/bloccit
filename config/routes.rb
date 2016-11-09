@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :question
+
   # => resources method, pass it a Symbol. creates post routes for creating, updating, viewing, deleting instances of post
   resources :posts
 

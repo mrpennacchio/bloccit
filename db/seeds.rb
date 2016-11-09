@@ -16,12 +16,23 @@ posts = Post.all
 # => call times on an Integer will run a given blcok the specified number of times
 100.times do
   Comment.create!(
-  # => call sample on the array returned by Post.all to pick a random post to associate each comment with 
+  # => call sample on the array returned by Post.all to pick a random post to associate each comment with
     post: posts.sample,
     body: RandomData.random_paragraph
+  )
+end
+
+
+100.times do
+  Question.create!(
+  # => call sample on the array returned by Post.all to pick a random post to associate each comment with
+  title: RandomData.random_sentence,
+  body:  RandomData.random_paragraph,
+  resolved: false
   )
 end
 
 puts "Seed finished"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
+puts "#{Question.count} questions created"

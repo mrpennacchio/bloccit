@@ -7,7 +7,7 @@
   <div class="col-md-4">
     <!-- format a link as an edit button which directs a user to /posts/@post.id/edit -->
     <%= link_to "Edit", edit_post_path(@post), class: 'btn btn-success' %>
-
+    <!-- use link_to to create a delete butotn. We override default method :post with :delete so that when it is called, it calls the delete route. -->
     <%= link_to "Delete Post", @post, method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure you want to delete this post?'} %>
   </div>
 </div>

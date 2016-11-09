@@ -1,0 +1,35 @@
+<h1> Edit Question </h1>
+
+<div class = "row">
+  <div class="col-md-4">
+    <p>Guidelines for questions</p>
+    <ul>
+      <li>Make sure it rhymes.</li>
+      <li>Don't use the letter "A".</li>
+      <li>The incessant use of hashtage will get you banned.</li>
+    </ul>
+  </div>
+  <div class="col-md-8">
+    <%= form_for @question do |f| %>
+      <div class="form-group">
+        <%# use f.label to display title. creates label tag %>
+        <%= f.label :title %>
+        <%# f.text_field is another method that form-helper provides. created input tag %>
+        <%= f.text_field :title, class: 'form-control', placeholder: "Enter question title" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :body %>
+        <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter question body" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :resolved %>
+        <%= f.check_box :resolved %>
+      </div>
+
+      <div class="form-group">
+        <%# f.submit creates input tag with submit  %>
+        <%= f.submit "Save", class: 'btn btn-success' %>
+      </div>
+    <% end %>
+  </div>
+</div>

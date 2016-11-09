@@ -1,0 +1,12 @@
+<h1>All Questions</h1>
+<%# iterate over each post in @posts. for each post we create a link with post.title
+    as the text that links to /posts/id %>
+<% @question.each do |question| %>
+<div class="media">
+  <div class="media-body">
+    <h4 class="media-heading">
+      <%= link_to question.title, question %>
+    </h4>
+  </div>
+</div>
+<% end %>
