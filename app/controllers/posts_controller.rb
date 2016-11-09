@@ -2,19 +2,22 @@ class PostsController < ApplicationController
   def index
     # => declare an instance variable @posts and assign it a collection of Post object using the all method
     @posts = Post.all
-
   end
+
 
   def show
     # => find the post that corresponds to the id in the params that was passed to show and assign it to @post
-    #    only assigning it to a single post. 
+    #    only assigning it to a single post.
     @post = Post.find(params[:id])
   end
+
+
 
   def new
     # => create an instance variable @post, assign it to an empty post by Post.new
     @post = Post.new
   end
+
 
   def create
     # => call Post.new to create new instance of Post
@@ -31,9 +34,41 @@ class PostsController < ApplicationController
       # => if not saved, displace error message and render a new view again
       flash.now[:alert] = "There was an error saving the post. Please try again."
       render :new
+    end
   end
-end
+
 
   def edit
+    @post = Post.find(params[:id])
   end
+
+
+  def update
+    @post = Post.find(params[:id])
+    @post.title = params[:post][:title]
+    @post.body = params[:post][:body]
+
+    if @post.save
+      flash[:notice] = "Post was updated."
+      redirect_to @post
+    else
+      flash.now[:alert] = "There was an error saving the post. Please try again"
+      render :edit
+    end
+  end
+
+
+  def destroy
+    @post = Post.find(params[:id])
+
+    # => call destroy on post. if that call is successful, set a flash message and redirect the user to the post index view. else, try again
+    if @post.destroy
+      flash[:notice] = "\"#{@post.title}\" was deleted successfully"
+      redirect_to posts_path
+    else
+      flash.now[:alert] = "There was an error deleting the post"
+      render :show
+    end
+  end
+
 end
