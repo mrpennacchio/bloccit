@@ -12,6 +12,7 @@
           <h4 class="media-heading">
             <!-- refactored how we link to individual posts using the topic_post_path -->
             <%= link_to post.title, topic_post_path(@topic,post) %>
+
           </h4>
           <!-- add submission and comment details for each post -->
           <small>
@@ -21,6 +22,7 @@
         </div>
       </div>
     <% end %>
+
   </div>
   <div class="col-md-4">
     <!--add new_topic_post_path to reflect the nested route we generated in routes.rb -->

@@ -19,6 +19,7 @@ topics = Topic.all
       topic: topics.sample,
       title: RandomData.random_sentence,
       body:  RandomData.random_paragraph
+
     )
 end
 posts = Post.all
@@ -34,6 +35,7 @@ posts = Post.all
 end
 
 puts "Seed finished"
+puts "#{SponsoredPost.count} sponsored posts created"
 puts "#{Topic.count} topics created"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
