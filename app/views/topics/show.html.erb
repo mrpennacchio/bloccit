@@ -12,6 +12,7 @@
           <h4 class="media-heading">
             <!-- refactored how we link to individual posts using the topic_post_path -->
             <%= link_to post.title, topic_post_path(@topic,post) %>
+
           </h4>
           <!-- add submission and comment details for each post -->
           <small>
@@ -21,10 +22,25 @@
         </div>
       </div>
     <% end %>
+    
+    <% @topic.sponsored_posts.each do |sponsored_post| %>
+    <div class="media">
+      <div class="media-body">
+        <h4 class="media-heading">
+          <%= link_to sponsored_post.title, topic_sponsored_post_path(@topic, sponsored_post) %>
+        </h4>
+        <small>
+         submitted <%= time_ago_in_words(sponsored_post.created_at) %> ago <br>
+         Sponsored Post <%= sponsored_post.id %>
+       </small>
+      </div>
+    </div>
+  <% end %>
   </div>
   <div class="col-md-4">
     <!--add new_topic_post_path to reflect the nested route we generated in routes.rb -->
     <%= link_to "New Post", new_topic_post_path(@topic), class: 'btn btn-success' %>
+    <%= link_to "New Sponsored Post", new_topic_sponsored_post_path(@topic), class: 'btn btn-success' %>
     <%= link_to "Delete Topic", @topic, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this topic?' } %>
   </div>
 </div>

@@ -9,7 +9,16 @@ require 'random_data'
 end
 topics = Topic.all
 
+100.times do
+  SponsoredPost.create!(
+  topic: topics.sample,
+  title: "SPONSORED POST",
+  body: RandomData.random_paragraph,
+  price: $15
+  )
+end
 
+sponsored_posts = SponsoredPost.all
 #Create Posts
 50.times do
   # => using create! with a bang unstructs the method to alert us with an error if a
@@ -19,6 +28,7 @@ topics = Topic.all
       topic: topics.sample,
       title: RandomData.random_sentence,
       body:  RandomData.random_paragraph
+
     )
 end
 posts = Post.all
@@ -34,6 +44,7 @@ posts = Post.all
 end
 
 puts "Seed finished"
+puts "#{SponsoredPost.count} sponsored posts created"
 puts "#{Topic.count} topics created"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
