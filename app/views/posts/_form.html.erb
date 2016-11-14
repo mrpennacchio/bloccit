@@ -1,0 +1,27 @@
+<%= form_for [topic, post] do |f| %>
+  <% if post.errors.any? %>
+    <!-- if there are any validation errors, we display an alert with the number of errors and their messages -->
+    <div class="alert alert-danger">
+      <!-- pluralize error if there is more than one error -->
+      <h4><%= pluralize(post.errors.count, "error") %>.</h4>
+      <ul>
+        <% post.errors.full_messages.each do |msg| %>
+          <li><%= msg %> </li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+    <!-- use form_group_tag to display title errors -->
+    <%= form_group_tag(post.errors[:title]) do %>
+      <%= f.label :title %>
+      <%= f.text_field :title, class: 'form-control', placeholder: "Enter post title" %>
+    <% end %>
+    <!-- use form_group_tag to display body errors -->
+    <%= form_group_tag(post.errors[:body]) do %>
+      <%= f.label :body %>
+      <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter post body" %>
+    <% end %>
+   <div class="form-group">
+      <%= f.submit "Save", class: 'btn btn-success' %>
+   </div>
+ <% end %>

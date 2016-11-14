@@ -11,6 +11,15 @@ RSpec.describe Post, type: :model do
   let (:post) { topic.posts.create!(title: title, body: body) }
 
   # => test whether post has attributes named title and body. tests whether post will return a non-niul value when post.title and post.body are called
+
+  it { is_expected.to validate_presence_of(:title) }
+  it { is_expected.to validate_presence_of(:body) }
+  it { is_expected.to validate_presence_of(:topic) }
+
+  it{ is_expected.to validate_length_of(:title).is_at_least(5) }
+  it{ is_expected.to validate_length_of(:body).is_at_least(20) }  
+
+
   describe "attributes" do
     it "has title and body attributes" do
       expect(post).to have_attributes(title: title, body: body)
