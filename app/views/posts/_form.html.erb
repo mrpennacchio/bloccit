@@ -6,11 +6,12 @@
       <h4><%= pluralize(post.errors.count, "error") %>.</h4>
       <ul>
         <% post.errors.full_messages.each do |msg| %>
-          <li><%= msg %> </li>
+          <li><%= msg %></li>
         <% end %>
       </ul>
     </div>
     <% end %>
+
     <!-- use form_group_tag to display title errors -->
     <%= form_group_tag(post.errors[:title]) do %>
       <%= f.label :title %>
