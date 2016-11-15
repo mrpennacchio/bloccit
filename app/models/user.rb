@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   # register an inline callback directly after the before_save callback.
   before_save { self.email = email.downcase if email.present? }
+  before_save :format_name
   # ensure name is present, and has max and min length
   validates :name, length:{ minimum:1, maximum: 100 }, presence: true
   # first validation executes if password_digest is nil. when we create a new user, there is a valid password
@@ -15,4 +16,14 @@ class User < ApplicationRecord
   # requires "password_digest" attribute, saves passwords securely
   # creates two attributes: password and password_confirmation
   has_secure_password
+
+  def format_name
+    if name
+      name_array = []
+      name.split.each do |n|
+        name_array << n.capitalize
+      end
+      self.name = name_array.join (" ")
+    end
+  end
 end
