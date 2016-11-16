@@ -3,6 +3,17 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def confirm
+    # create new user with new and set corresponding attributes with params hash
+    @user = User.new
+    @user.name = params[:user][:name]
+    @user.email = params[:user][:email]
+    @user.password = params[:user][:password]
+    @user.password_confirmation = params[:user][:password_confirmation]
+    # we save the user to the database. If the database save is successful, add flash message, redirect to root path
+  end
+
+
   def create
     # create new user with new and set corresponding attributes with params hash
     @user = User.new

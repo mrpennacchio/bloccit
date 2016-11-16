@@ -9,5 +9,7 @@ Rails.application.routes.draw do
   # => modify about view to allow users to visit /about instead of /welcome/about
   get 'about' => 'welcome#about'
 
+  post 'users/confirm' => 'users#confirm' 
+
   root 'welcome#index'
 end
