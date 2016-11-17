@@ -23,7 +23,10 @@ class User < ApplicationRecord
       name.split.each do |n|
         name_array << n.capitalize
       end
-      self.name = name_array.join (" ")
+      # name_array = name.split.map{ |n| n.capitalize}
+      self.name = name_array.join(" ")
+      # self.name = name.split.map{ |n| n.capitalize }.join(" ")
+
     end
   end
 end
