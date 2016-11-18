@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
   end
 
   def create
+  
     # search the database for a user with the specified email address in the params hash
     # use downcase to normalize email addresss since the addresses stored in the databse are stored as lowercase strings
     user = User.find_by(email: params[:session][:email].downcase)
@@ -25,5 +26,6 @@ class SessionsController < ApplicationController
     flash[:notice] = "You've been signed out, come back soon!"
     redirect_to root_path
   end
+
 
 end
