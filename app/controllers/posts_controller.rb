@@ -1,5 +1,8 @@
 class PostsController < ApplicationController
 
+  # use before_action filter to call the require_sign_in method before each controller action
+  before_action :require_sign_in, except: :show
+
   def show
     # => find the post that corresponds to the id in the params that was passed to show and assign it to @post
     #    only assigning it to a single post.
@@ -15,13 +18,12 @@ class PostsController < ApplicationController
 
 
   def create
-    # => call Post.new to create new instance of Post
-    @post = Post.new
-    @post.title = params[:post][:title]
-    @post.body = params[:post][:body]
     @topic = Topic.find(params[:topic_id])
+    @post = @topic.posts.build(post_params)
 
-    @post.topic = @topic
+    # we assign @post.user in the same way we assignemd @post.topic, to properly scope the new post
+    @post.user = current_user
+
     # => if we save Post to the database a display success message wil appear
     if @post.save
       # => assign value to flash[:notice]. this provides a way to pass temporary values between actions
@@ -42,8 +44,7 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-    @post.title = params[:post][:title]
-    @post.body = params[:post][:body]
+    @post.assign_attributes(post_params)
 
     if @post.save
       flash[:notice] = "Post was updated."
@@ -68,4 +69,9 @@ class PostsController < ApplicationController
     end
   end
 
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
 end

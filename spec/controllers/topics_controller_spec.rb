@@ -30,7 +30,7 @@ RSpec.describe TopicsController, type: :controller do
 
     it "assigns my_topic to @topic" do
       get :show, {id: my_topic.id}
-      expect(assigns(topic)).to eq(my_topic)
+      expect(assigns(:topic)).to eq(my_topic)
     end
   end
 
@@ -55,7 +55,7 @@ RSpec.describe TopicsController, type: :controller do
 
   describe "POST create" do
     testdata = {topic: {name: RandomData.random_sentence, description: RandomData.random_paragraph}}
-    
+
     it "increases the number of topics by 1" do
       expect { post :create, testdata}.to change(Topic, :count).by(1)
     end

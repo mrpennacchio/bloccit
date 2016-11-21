@@ -16,7 +16,7 @@
           </h4>
           <!-- add submission and comment details for each post -->
           <small>
-            submitted <%=time_ago_in_words(post.created_at) %> ago <br>
+            submitted <%=time_ago_in_words(post.created_at) %> ago by <%= post.user.name %> <br>
             <%= post.comments.count %> Comments
           </small>
         </div>

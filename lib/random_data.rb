@@ -1,6 +1,17 @@
 # => define RandomData as a module because it is standalone with no dependencies or inheritance requirements
 module RandomData
   # => sentences to an array, create 4-6 random sentences and put them on sentences
+
+  def self.random_name
+    first_name = random_word.capitalize
+    last_name = random_word.capitalize
+    "#{first_name} $#{last_name}"
+  end
+
+  def self.random_email
+    "#{random_word}@#{random_word}.#{random_word}"
+  end
+
   def self.random_paragraph
     sentences = []
     rand(4..6).times do
