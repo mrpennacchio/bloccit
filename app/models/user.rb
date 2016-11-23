@@ -1,9 +1,14 @@
 class User < ApplicationRecord
   has_many :posts
+
   # register an inline callback directly after the before_save callback.
   before_save { self.email = email.downcase if email.present? }
+
+  # same as self.role = :member if self.role.nil?
+  before_save { self.role ||= :member }
+
   # ensure name is present, and has max and min length
-  validates :name, length:{ minimum:1, maximum: 100 }, presence: true
+  validates :name, length:{ minimum: 1, maximum: 100 }, presence: true
   # first validation executes if password_digest is nil. when we create a new user, there is a valid password
   validates :password, presence: true, length: { minimum: 6 }, if: "password_digest.nil?"
   # when updating user password, and skips validation if no updated password is given
@@ -16,4 +21,7 @@ class User < ApplicationRecord
   # requires "password_digest" attribute, saves passwords securely
   # creates two attributes: password and password_confirmation
   has_secure_password
+
+  # assigning an integer 0 to member, and 1 to admin in the database
+  enum role: [:member, :admin]
 end

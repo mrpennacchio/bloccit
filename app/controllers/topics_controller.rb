@@ -1,4 +1,8 @@
 class TopicsController < ApplicationController
+  # use the before action filter and require_sign_in method to redirect users who attempt to access actions other than index and show
+  before_action :require_sign_in, except: [:index, :show]
+  # use another before_action filter to check role of signed in users. 
+  before_action :authorize_user, except: [:index, :show]
 
   def index
     @topics = Topic.all
@@ -26,7 +30,6 @@ class TopicsController < ApplicationController
     @topic = Topic.find(params[:id])
   end
 
-
   def update
     @topic = Topic.find(params[:id])
 
@@ -40,7 +43,6 @@ class TopicsController < ApplicationController
       render :edit
     end
   end
-
 
   def destroy
     @topic = Topic.find(params[:id])
@@ -58,5 +60,12 @@ class TopicsController < ApplicationController
 
   def topic_params
     params.require(:topic).permit(:name, :description, :public)
+  end
+
+  def authorize_user
+    unless current_user.admin?
+      flash[:alert] = "You must be an admin to do that."
+      redirect_to topics_path
+    end
   end
 end
