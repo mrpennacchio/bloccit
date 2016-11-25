@@ -18,7 +18,7 @@
     <% end %>
   </div>
   <!-- check if there is a sign-in current_user, and that current_user is an admin -->
-  <% if current_user && current_user.admin? %>
+  <% if user_is_authorized_for_topics? %>
     <div class-"col-md-4">
     <!-- create a link to create a new topic-->
       <%= link_to "New Topic", new_topic_path, class: 'btn btn-success' %>

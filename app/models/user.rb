@@ -23,5 +23,5 @@ class User < ApplicationRecord
   has_secure_password
 
   # assigning an integer 0 to member, and 1 to admin in the database
-  enum role: [:member, :admin]
+  enum role: [:member, :admin, :moderator]
 end
