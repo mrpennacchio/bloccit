@@ -15,6 +15,7 @@ RSpec.describe Post, type: :model do
   let(:post) { topic.posts.create!(title: title, body: body, user: user) }
   # => test whether post has attributes named title and body. tests whether post will return a non-niul value when post.title and post.body are called
 
+  it { is_expected.to have_many(:comments)}
   it { is_expected.to belong_to(:topic) }
   it { is_expected.to belong_to(:user) }
 

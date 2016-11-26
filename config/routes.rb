@@ -4,6 +4,13 @@ Rails.application.routes.draw do
     #  pass resources :posts to the resources: topics block. this nests posts route under topic route
     resources :posts, except: [:index]
   end
+
+  # use only: [] because we dont want to create posts/:id routes, just posts/:post_id/comments routes
+  resources :posts, only: [] do
+    # only create and destroy routes. the show view is through the posts show view. 
+    resources :comments, only: [:create, :destroy]
+  end
+
   # create routes for new and create actions. only hash key will prevent unnecessary routes
   resources :users, only: [:new, :create]
 
