@@ -4,17 +4,7 @@
   <div class="col-md-8">
     <!-- loop over each topic in @topics -->
     <% @topics.each do |topic| %>
-      <div class="media">
-        <div class="media-body">
-          <h4 class="media-heading">
-            <!-- create a link to the show view for each topic-->
-            <%= link_to topic.name, topic %>
-          </h4>
-          <small>
-            <%= topic.description %>
-          </small>
-        </div>
-      </div>
+      <%= render partial: 'topic',  locals: { topic: topic } %>
     <% end %>
   </div>
   <!-- check if there is a sign-in current_user, and that current_user is an admin -->
