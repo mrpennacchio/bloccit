@@ -8,6 +8,7 @@
     <p class="lead"><%= @topic.description %></p>
     <% @topic.posts.each do |post| %>
       <div class="media">
+        <%= render partial: 'votes/voter', locals: { post: post } %>
         <div class="media-body">
           <h4 class="media-heading">
             <!-- refactored how we link to individual posts using the topic_post_path -->

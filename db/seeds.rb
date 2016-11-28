@@ -25,7 +25,7 @@ topics = Topic.all
 50.times do
   # => using create! with a bang unstructs the method to alert us with an error if a
   #    problem occurs with the data we are seeding
-    Post.create!(
+    post = Post.create!(
       # => use methods from RandomData that creates random strings for title and body.
       user:  users.sample,
       topic: topics.sample,
@@ -33,7 +33,13 @@ topics = Topic.all
       body:  RandomData.random_paragraph
 
     )
+
+    # update a time post was created.
+    post.update_attribute(:created_at, rand(10.minutes .. 1.year).ago)
+    # create between one and five votes for each post. [-1, 1].sample randomly creates a vote
+    rand(1..5).times { post.votes.create!(value: [-1, 1].sample, user: users.sample) }
 end
+
 posts = Post.all
 
 #Create Comments
@@ -67,3 +73,4 @@ puts "#{User.count} users created"
 puts "#{Topic.count} topics created"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
+puts "#{Vote.count} votes created"
