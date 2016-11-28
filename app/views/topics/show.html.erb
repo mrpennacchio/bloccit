@@ -2,7 +2,8 @@
 <% if user_is_authorized_for_topics? %>
   <%= link_to "Edit Topic", edit_topic_path, class: 'btn btn-success' %>
   <%= link_to "Delete Topic", @topic, method: :delete, class:'btn btn-danger', data: { confirm: 'Are you sure you want to delete this topic?' } %>
-<% elsif user_is_topic_moderator? %>
+  <% end %>
+<% if user_is_topic_moderator? %>
   <%= link_to "Edit Topic", edit_topic_path, class: 'btn btn-success' %>
 <% end %>
 

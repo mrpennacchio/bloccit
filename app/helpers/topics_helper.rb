@@ -4,6 +4,6 @@ module TopicsHelper
   end
 
   def user_is_topic_moderator?
-    current_user.moderator?
+    current_user && current_user.moderator?
   end
 end

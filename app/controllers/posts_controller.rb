@@ -6,6 +6,9 @@ class PostsController < ApplicationController
   # check role of signed in user, if current user isnt authorized, redirect to show view.
   before_action :authorize_user, except: [:show, :new, :create]
 
+  before_action :authorize_mod, only: [:edit, :update,], except: [:index, :show]
+
+
   def show
     # => find the post that corresponds to the id in the params that was passed to show and assign it to @post
     #    only assigning it to a single post.
@@ -78,11 +81,18 @@ class PostsController < ApplicationController
     params.require(:post).permit(:title, :body)
   end
 
+  def authorize_mod
+    unless current_user.moderator? || current_user.admin? || current_user == post.user
+      flash[:alert] = "You must be a moderator or admin to do that."
+      redirect_to topics_path
+    end
+  end
+
   def authorize_user
     post = Post.find(params[:id])
 
     # redirect user unless they own the post they're attempting to modify, or theyre an admin
-    unless current_user == post.user || current_user.admin? || current_user.moderator?
+    unless current_user == post.user || current_user.admin?
       flash[:alert] = "You must be an admin to do that."
       redirect_to [post.topic, post]
     end
