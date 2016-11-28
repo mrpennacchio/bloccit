@@ -44,7 +44,7 @@ RSpec.describe Post, type: :model do
       @down_votes = post.votes.where(value: -1).count
     end
 
-    # test that upvotes returns count of up votes
+    # test that up_votes returns count of up votes
     describe "#up_votes" do
       it "counts the number of votes with value = 1" do
         expect( post.up_votes ).to eq(@up_votes)
@@ -85,4 +85,21 @@ RSpec.describe Post, type: :model do
       end
     end
   end
+
+  describe "create_vote method after post" do
+    it "should create an upvote after_create" do
+      expect(post.up_votes).to eq(1)
+    end
+
+    it "create_vote method is called after post" do
+      post = topic.posts.new(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user)
+      expect(post).to receive(:create_vote)
+      post.save
+    end
+
+    it "should associate the create_vote with the user" do
+      expect(post.votes.first.user).to eq(post.user)
+    end
+  end
+
 end
