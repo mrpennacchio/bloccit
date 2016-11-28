@@ -38,8 +38,8 @@ RSpec.describe Post, type: :model do
   describe "voting" do
     # create three up votes and two down before each spec
     before do
-      3.times { post.votes.create!(value: 1) }
-      2.times { post.votes.create!(value: -1 ) }
+      3.times { post.votes.create!(value: 1, user: user) }
+      2.times { post.votes.create!(value: -1, user: user ) }
       @up_votes = post.votes.where(value: 1 ).count
       @down_votes = post.votes.where(value: -1).count
     end
@@ -74,13 +74,13 @@ RSpec.describe Post, type: :model do
 
       it "updates the rank when an up vote is created" do
         old_rank = post.rank
-        post.votes.create!(value: 1)
+        post.votes.create!(value: 1, user: user)
         expect(post.rank).to eq (old_rank + 1)
       end
 
       it "updates when a down vote is created" do
         old_rank = post.rank
-        post.votes.create!(value: -1)
+        post.votes.create!(value: -1, user: user)
         expect(post.rank).to eq (old_rank - 1)
       end
     end

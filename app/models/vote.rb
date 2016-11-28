@@ -1,6 +1,6 @@
 class Vote < ApplicationRecord
   # optional: true is a rails 5 convention that associates the vote to the user
-  belongs_to :user, optional: true
+  belongs_to :user
   belongs_to :post
   after_save :update_post
 
