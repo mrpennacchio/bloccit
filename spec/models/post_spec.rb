@@ -38,7 +38,7 @@ RSpec.describe Post, type: :model do
   describe "voting" do
     # create three up votes and two down before each spec
     before do
-      3.times { post.votes.create!(value: 1) }
+      3.times { post.votes.create!(value: 1, user) }
       2.times { post.votes.create!(value: -1 ) }
       @up_votes = post.votes.where(value: 1 ).count
       @down_votes = post.votes.where(value: -1).count
