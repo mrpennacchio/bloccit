@@ -14,6 +14,12 @@ class Post < ApplicationRecord
   validates :topic, presence: true
   validates :user, presence: true
 
+  after_create :automatic_favorite
+
+  def automatic_favorite
+    Favorite.create(post: self, user: self.user)
+    FavoriteMailer.new_post(self).deliver_now
+  end
 
   def up_votes
     # find up votes for a post by passing value: 1 to where. fetches collection of votes with value of 1.
