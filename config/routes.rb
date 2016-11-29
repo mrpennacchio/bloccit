@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :posts, only: [] do
     # only create and destroy routes. the show view is through the posts show view.
     resources :comments, only: [:create, :destroy]
+    resources :favorites, only: [:create, :destroy]
 
     # create POST routes at the url posts/:id/up-vote or down-vote....the as tells it that it will be the path up_vote_path
     post '/up-vote' => 'votes#up_vote', as: :up_vote

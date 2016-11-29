@@ -5,6 +5,7 @@ class Post < ApplicationRecord
 
   # add votes associaten to Post,relates models and allows us to call post.votes. dependent:destroy  destroys vote when parent post is deleted
   has_many :votes, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   # order posts by created_at in descending order
   default_scope { order('rank DESC') }
 
