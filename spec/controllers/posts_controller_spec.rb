@@ -5,12 +5,12 @@ include SessionsHelper
 
 #   test for PostsController. treating it as a controller test
 RSpec.describe PostsController, type: :controller do
-  let(:my_user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld") }
-  let(:other_user) { User.create!(name: RandomData.random_sentence, email: RandomData.random_email, password: "helloworld", role: :member) }
-  let(:my_topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph) }
+  let(:my_user) { create(:user) }
+  let(:other_user) { create(:user) }
+  let(:my_topic) { create(:topic) }
   # => GET on index view and expects successful http response of 200
   # => create a post, and a assign it to my_post. use RandomData to give my_post random title and body
-  let(:my_post) { my_topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: my_user) }
+  let(:my_post) { create(:post, topic: my_topic, user: my_user) }
 
   # add a context for a guest (un-signed-in) user. contexts organize tests based on state of object
   context "guest user" do

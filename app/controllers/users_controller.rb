@@ -3,6 +3,11 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def show
+    @user = User.find(params[:id])
+    @posts = @user.posts.visible_to(current_user)
+  end
+
   def create
     # create new user with new and set corresponding attributes with params hash
     @user = User.new

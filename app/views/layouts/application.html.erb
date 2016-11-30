@@ -15,7 +15,12 @@
 
         <div class="pull-right user-info">
           <% if current_user %>
-            <%= current_user.name %> - <%= link_to "Sign Out", session_path(current_user), method: :delete %>
+            <!-- image_tag is populated with result of avatar_url -->
+            <%= image_tag current_user.avatar_url(48), class: "gravatar" %>
+            <div class="pull-right">
+              <!-- move the pre-existing code so that it floats to the right of the avatar -->
+              <%= link_to current_user.name, user_path(current_user) %> <br/> <%= link_to "Sign Out", session_path(current_user), method: :delete %>
+            </div>
           <% else %>
             <%= link_to "Sign In", new_session_path %> or
             <%= link_to "Sign Up", new_user_path %>

@@ -19,7 +19,7 @@ class User < ApplicationRecord
   # validates email is present, unique, and correct length
   validates :email,
             presence: true,
-            uniqueness: { case_sensitive: false},
+            uniqueness: { case_sensitive: false },
             length: { minimum: 3, maximum: 254 }
   # requires "password_digest" attribute, saves passwords securely
   # creates two attributes: password and password_confirmation
@@ -30,6 +30,11 @@ class User < ApplicationRecord
 
   def favorite_for(post)
     favorites.where(post_id: post.id).first
+  end
+
+  def avatar_url(size)
+    gravatar_id = Digest::MD5::hexdigest(self.email).downcase
+    "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
   end
 
 end
