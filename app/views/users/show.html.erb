@@ -22,7 +22,39 @@
 </div>
 <!-- display all of the user's posts and comments using partials -->
 <h2>Posts</h2>
-<%= render @user.posts %>
+<% if @user.posts.any? %>
+  <%=render @user.posts %>
+<% else has_no_posts? %>
+  <h5><%= @user.name %> has not submitted any posts yet.</h5>
+<% end %>
 
 <h2>Comments</h2>
-<%= render @user.comments %>
+<% if @user.comments.any? %>
+  <%= render @user.comments %>
+<% else has_no_comments? %>
+  <h5><%= @user.name %> has not submitted any comments yet.</h5>
+<% end %>
+
+
+<% if @user.user_has_favorites %>
+<h2>Favorited Posts</h2>
+  <% @user.favorites.each do |favorite| %>
+
+  <div class='media'>
+      <%= link_to favorite.post.title, topic_post_path(favorite.post)  %>
+    <% avatar_url = favorite.post.user.avatar_url(40) %>
+    <% if avatar_url %>
+      <div class="pull-left">
+        <!-- user rails image_tag method to create an <img> -->
+        <%= image_tag avatar_url, class: 'media-object' %>
+      </div>
+    <% end %>
+    <div class="media-body">
+      <small>
+        <%= pluralize(favorite.post.points, 'vote') %>
+        <%= pluralize(favorite.post.comments.count, 'comment') %>
+      </small>
+    </div>
+
+  <% end %>
+<% end %>

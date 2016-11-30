@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   # tests for name
   let(:user) { create(:user) }
+  let(:post) { create(:post) }
 
   it { is_expected.to have_many (:posts) }
   it { is_expected.to have_many (:comments) }
@@ -116,6 +117,19 @@ RSpec.describe User, type: :model do
       expected_gravatar = "http://gravatar.com/avatar/bb6d1172212c180cfbdb7039129d7b03.png?s=48"
       # expect known_user.avatar_url to return expected_gravatar
       expect(known_user.avatar_url(48)).to eq(expected_gravatar)
+    end
+  end
+
+  #checks to see if the user has favorited any posts
+  describe "current user favorited posts" do
+    before do
+      create(:topic)
+      create(:post)
+      Favorite.create!(post: post, user: user)
+    end
+
+    it "checks if a user has favorited any posts" do
+      expect(user.user_has_favorites).to eq(true)
     end
   end
 end

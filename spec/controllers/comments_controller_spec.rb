@@ -6,7 +6,7 @@ RSpec.describe CommentsController, type: :controller do
   let (:other_user) { create(:user) }
   let(:my_topic) { create(:topic) }
   let(:my_post) { create(:post, topic: my_topic, user: my_user) }
-  let(:my_comment) { Comment.create!(body: 'Comment Body', post: my_post, user: my_user) }
+  let(:my_comment) { create(:comment, post: my_post, user: my_user) }
 
   # specs for guest users who will redirect to sign in if they try to create ro delete a comment
   context "guest" do

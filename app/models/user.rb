@@ -37,4 +37,8 @@ class User < ApplicationRecord
     "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
   end
 
+  def user_has_favorites
+    self.favorites.any?
+  end
+
 end
