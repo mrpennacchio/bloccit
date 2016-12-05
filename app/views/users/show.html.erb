@@ -22,17 +22,18 @@
 </div>
 <!-- display all of the user's posts and comments using partials -->
 <h2>Posts</h2>
-<% if @user.posts.any? %>
-  <%=render @user.posts %>
-<% else has_no_posts? %>
+<% if has_no_posts? %>
   <h5><%= @user.name %> has not submitted any posts yet.</h5>
+<% else %>
+  <%=render @user.posts %>
 <% end %>
 
 <h2>Comments</h2>
-<% if @user.comments.any? %>
-  <%= render @user.comments %>
-<% else has_no_comments? %>
-  <h5><%= @user.name %> has not submitted any comments yet.</h5>
+<% if has_no_comments? %>
+   <h5><%= @user.name %> has not submitted any comments yet.</h5>
+
+<% else  %>
+<%= render @user.comments %>
 <% end %>
 
 
